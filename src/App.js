@@ -1,25 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
+import ProductList from './components/ProductList';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import './App.css';
+import AddProduct from './components/AddProduct';
+import EditProduct from './components/EditProduct'
+import { Provider } from 'react-redux'
+
+const store = require('./reducers/store').init()
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <Provider store={store}> 
+      <Router>
+        <div className="container">
+          <Route exact path="/" component={ProductList} />
+          <Route exact path="/add-product" component={AddProduct} />
+          <Route exact path="/edit/:id" component={EditProduct} />
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
